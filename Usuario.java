@@ -1,6 +1,11 @@
+package Classes;
+
+import java.util.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import Classes.Ingresso;
+
 
 public class Usuario{
     private String login;
@@ -10,7 +15,6 @@ public class Usuario{
     private String email;
     private boolean isAdmin;
     private List<Ingresso> ingressos;
-
 
     public String getLogin() {return login;}
     public void setLogin(String login) {this.login = login;}
@@ -22,10 +26,12 @@ public class Usuario{
     public void setCpf(String cpf){this.cpf = cpf;}
     public String getEmail(){return email;}
     public void setEmail(String email){this.email = email;}
-    public List<LocalDate> getIngressos() {return ingressos;}
-    public void setIngressos(List<LocalDate> ingressos) {this.ingressos = ingressos;}
+    public List<Ingresso> getIngressos() {
+        return ingressos;
+    }
+    public void setIngressos(List<Ingresso> ingressos) {this.ingressos = ingressos;}
 
-    public Usuario(String login,String senha, String nome,String email, String cpf, boolean isAdmin){
+    public Usuario(String login,String senha, String nome,String cpf, String email, boolean isAdmin){
         this.login = login;
         this.senha = senha;
         this.nome = nome;
@@ -47,7 +53,7 @@ public class Usuario{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User usuario = (User) o;
+        Usuario usuario = (Usuario) o;
         return cpf.equals(usuario.cpf);
     }
 

@@ -1,60 +1,60 @@
-import java.time.LocalDate;
+package Classes;
+
+import java.util.Date;
+import java.util.Objects;
+import Classes.Evento;
 
 public class Ingresso {
     private Evento evento;
-    private float preco;
+    private double preco;
     private String assento;
     private boolean isAtivo;
 
-    public Ingresso(Evento evento, float preco, String assento) {
+    public Ingresso(Evento evento, double preco, String assento) {
         this.evento = evento;
         this.preco = preco;
         this.assento = assento;
         isAtivo = true;
     }
 
+    // Metodo para verificar se o ingresso ainda é válido (ativo)
     public boolean isAtivo() {
-        LocalDate dataAtual = LocalDate.now();
-        LocalDate dataEvento = evento.getData();
-
-        if (dataAtual.isAfter(dataEvento) || dataAtual.isEqual(dataEvento)) {
-            return false;
-        } else {
-            return true;
-        }
+        return isAtivo;
     }
-    public boolean reativar(){
-        LocalDate dataAtual = LocalDate.now();
-        LocalDate dataEvento = evento.getData();
 
-        if (dataAtual.isAfter(dataEvento) || dataAtual.isEqual(dataEvento)) {
+    // Metodo para reativar o ingresso
+    public boolean reativar() {
+        Date dataAtual = new Date();
+        Date dataEvento = evento.getData();
+
+        if (dataAtual.after(dataEvento) || dataAtual.equals(dataEvento)) {
             return false;
         } else {
             isAtivo = true;
             return true;
         }
     }
-    }
 
-    public boolean cancelar(){
-        LocalDate dataAtual = LocalDate.now();
-        LocalDate dataEvento = evento.getData();
+    // Metodo para cancelar o ingresso
+    public boolean cancelar() {
+        Date dataAtual = new Date();
+        Date dataEvento = evento.getData();
 
-        if(dataAtual.isAfter(dataEvento) || dataAtual.isEqual(dataEvento)){
+        if (dataAtual.after(dataEvento) || dataAtual.equals(dataEvento)) {
             return false;
-        }else{
+        } else {
             isAtivo = false;
             return true;
         }
     }
 
-    // Teste de ingresso duplicados;
+    // Teste de ingresso duplicado
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Ingresso ingresso = (Ingresso) obj;
-        return Float.compare(ingresso.preco, preco) == 0 &&
+        return Double.compare(ingresso.preco, preco) == 0 &&
                 Objects.equals(evento, ingresso.evento) &&
                 Objects.equals(assento, ingresso.assento);
     }
@@ -68,26 +68,28 @@ public class Ingresso {
     public Evento getEvento() {
         return evento;
     }
-    public float getPreco() {
+
+    public double getPreco() {
         return preco;
     }
+
     public String getAssento() {
         return assento;
-    }
-    public boolean isAtivo() {
-        return isAtivo;
     }
 
     // Setters
     public void setEvento(Evento evento) {
         this.evento = evento;
     }
+
     public void setPreco(float preco) {
         this.preco = preco;
     }
+
     public void setAssento(String assento) {
         this.assento = assento;
     }
+
     public void setAtivo(boolean isAtivo) {
         this.isAtivo = isAtivo;
     }

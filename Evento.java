@@ -1,4 +1,5 @@
-import java.time.LocalDate;
+package Classes;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -6,15 +7,15 @@ import java.util.List;
 public class Evento {
     private String nome;
     private String descricao;
-    private LocalDate data;
+    private Date data;
     private HashMap<String,Boolean> assentos;
     private boolean status;
     
 
-    public LocalDate getData() {
+    public Date getData() {
         return data;
     }
-    public void setData(LocalDate data) {
+    public void setData(Date data) {
         this.data = data;
     }
     public String getDescricao() {
@@ -34,7 +35,7 @@ public class Evento {
     }
 
     // Construtor
-    public Evento(String nome, String descricao, LocalDate data) {
+    public Evento(String nome, String descricao, Date data) {
         this.nome = nome;
         this.descricao = descricao;
         this.data = data;
@@ -43,9 +44,9 @@ public class Evento {
     }
 
     public boolean isAtivo() {
-        LocalDate dataAtual = LocalDate.now();
+        Date dataAtual = new Date();
 
-        if (dataAtual.isAfter(data) || dataAtual.isEqual(data)) {
+        if (dataAtual.after(data) || dataAtual.equals(data)) {
             this.status = false; // Se a data atual for maior ou igual à data do evento, retorna falso;
             return false;
         } else {
@@ -54,11 +55,11 @@ public class Evento {
         }
     }
 
-    // Método para adicionar um assento
+    // Metodo para adicionar um assento
     public void adicionarAssento(String nomeAssento) {
         assentos.put(nomeAssento, true); // O assento é adicionado sempre como disponível.
     }
-    // Método para remover assento
+    // Metodo para remover assento
     public boolean removerAssento(String nomeAssento) {
         if (assentos.containsKey(nomeAssento)) {
             assentos.remove(nomeAssento);
@@ -66,8 +67,9 @@ public class Evento {
         } else {
             return false;
         }
+    }
 
-    // Método para retornar assentos disponíveis
+    // Metodo para retornar assentos disponíveis
     public List<String> getAssentosDisponiveis() {
         List<String> assentosDisponiveis = new ArrayList<>();
         for (String assento : assentos.keySet()) {
@@ -77,5 +79,4 @@ public class Evento {
         }
         return assentosDisponiveis;
     }
-
 }
