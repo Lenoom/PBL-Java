@@ -18,10 +18,8 @@ e estou ciente que estes trechos não serão considerados para fins de avaliaç�
 package Classes;
 
 import java.util.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import Classes.Ingresso;
 
 
 public class Usuario{
@@ -32,6 +30,7 @@ public class Usuario{
     private String email;
     private boolean isAdmin;
     private List<Ingresso> ingressos;
+    private List<Cartao> cartoes;
 
     public String getLogin() {return login;}
     public void setLogin(String login) {this.login = login;}
@@ -47,8 +46,14 @@ public class Usuario{
         return ingressos;
     }
     public void setIngressos(List<Ingresso> ingressos) {this.ingressos = ingressos;}
+    public void setCartoes(List<Cartao> cartoes) {
+        this.cartoes = cartoes;
+    }
+    public List<Cartao> getCartoes() {
+        return cartoes;
+    }
 
-    public Usuario(String login,String senha, String nome,String cpf, String email, boolean isAdmin){
+    public Usuario(String login, String senha, String nome, String cpf, String email, boolean isAdmin){
         this.login = login;
         this.senha = senha;
         this.nome = nome;
@@ -56,6 +61,7 @@ public class Usuario{
         this.email = email;
         this.isAdmin = isAdmin;
         this.ingressos = new ArrayList<>();
+        this.cartoes = new ArrayList<>();
     }
     public boolean isAdmin(){
         return isAdmin;
@@ -63,6 +69,42 @@ public class Usuario{
 
     public boolean login(String login, String senha) {
         return this.login.equals(login) && this.senha.equals(senha);
+    }
+
+    // Metodo pra add pagamento - Alterar futuramente para adicionar boleto.
+    public void addCartao(String numeracao){
+        Cartao cartao = new Cartao(numeracao);
+        if(cartao != null){
+            this.cartoes.add(cartao);
+        }
+    }
+    // Metodo para avaliar um evento;
+    public boolean avaliarEvento(Evento evento,double nota,String comentario){
+        Date atualData = new Date();
+        if ( (evento != null) && (atualData.after(evento.getData())) ){
+                Avaliacao avaliacao = new Avaliacao(nota, comentario, this);
+                evento.adicionarAvaliacao(avaliacao);
+                return true;
+        }
+        return false;
+    }
+
+    // Metodo para editar perfil.
+    public boolean editarPerfil(String atributo, String novo) {
+        switch (atributo.toLowerCase()) {
+            case "nome":
+                setNome(novo);
+                return true;
+            case "email":
+                setEmail(novo);
+                return true;
+            case "senha":
+                setSenha(novo);
+                return true;
+            default:
+                System.out.println("Atributo inválido.");
+                return false;
+        }
     }
 
     @Override

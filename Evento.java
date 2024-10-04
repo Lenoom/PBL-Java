@@ -26,6 +26,7 @@ public class Evento {
     private String descricao;
     private Date data;
     private HashMap<String,Boolean> assentos;
+    private List<Avaliacao> avaliacoes;
     private boolean status;
     
 
@@ -84,6 +85,9 @@ public class Evento {
         } else {
             return false;
         }
+    }
+    public void adicionarAvaliacao(Avaliacao avaliacao){
+        avaliacoes.add(avaliacao);
     }
 
     // Metodo para retornar assentos disponíveis

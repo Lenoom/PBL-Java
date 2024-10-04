@@ -18,10 +18,6 @@ e estou ciente que estes trechos não serão considerados para fins de avaliaç�
 package Classes;
 
 import java.util.*;
-import java.time.LocalDate;
-import Classes.Ingresso;
-import Classes.Usuario;
-import Classes.Evento;
 
 public class Controller {
 
@@ -35,6 +31,14 @@ public class Controller {
         return usuario;
     }
 
+    // Metodo para avaliar um evento.
+    public boolean avaliarEvento(Usuario usuario, String eventoNome, double nota, String comentario){
+        Evento evento = buscarEvento(eventoNome);
+        if(evento != null){
+            return usuario.avaliarEvento(evento,nota,comentario);
+        }
+        return false; // Caso o evento não exista.
+    }
     // Metodo que cadastra eventos
     public Evento cadastrarEvento(Usuario usuario, String nome, String descricao, Date data) {
         if (!usuario.isAdmin()) {
